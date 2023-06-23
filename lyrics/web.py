@@ -30,7 +30,7 @@ def api_artist(artist_id):
 
 
 @app.route("/api/v1/song/<song_id>")
-def song(song_id):
+def lyrics(song_id):
     print(request.headers)
     db = models.init_db(app)
     artists = db.session.execute(db.select(models.Artist)).scalars()
