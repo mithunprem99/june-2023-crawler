@@ -9,13 +9,22 @@ function App() {
     const [artists, setArtists] = useState([]);
     const [tracks, setTracks] = useState([]);
     const [lyrics, setLyrics] = useState([])
-
+    const [theme, setTheme] = useState('light');
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
     useEffect(() => {
         axios.get("http://127.0.0.1:8000//api/v1/artist")
             .then((resp) => {
                 setArtists(resp.data.artists);
                 setTracks([])
                 setLyrics([])
+                document.body.className = theme;
+            
             });
     }, []);
 
@@ -43,10 +52,19 @@ function App() {
     }
 
     return (
+        <div className={`App ${theme}`}>
+            <div>
+                <button onClick={toggleTheme}>Toggle Theme</button>
+            </div>
         <div className="row">
+            
+
+      
+    
+  
             <div className="col">
                 <h2> Artists </h2>
-                <ol>
+                <ul>
                     {artists.map(((artist, idx) => <li key={`artist${artist.id}`}>
                         <a
                             href={`http://127.0.0.1:8000/api/v1/artist/${artist.id}`}
@@ -55,7 +73,7 @@ function App() {
                         >{artist.name}
                         </a>
                     </li>))}
-                </ol>
+                </ul>
             </div>
             <div className="col">
                 <h2> Tracks </h2>
@@ -71,6 +89,7 @@ function App() {
                 </ul>
             </div>
            <div className="col">
+            
                 <h2> Lyrics </h2>
                 {lyrics.map(((lyric, idx) => 
                 <div key={idx}>
@@ -80,6 +99,7 @@ function App() {
 
             </div>
         </div>
+         </div>
     );
 }
 
