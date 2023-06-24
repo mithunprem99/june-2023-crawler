@@ -64,6 +64,9 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+.artist_track{
+  text-align: left;
+}
 
 @keyframes App-logo-spin {
   from {
