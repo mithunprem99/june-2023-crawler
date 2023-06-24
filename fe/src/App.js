@@ -81,13 +81,14 @@ function App() {
 
     const handleCrawl = () => {
         alert("Please wait while we crawl the data. This may take some time.");
-        setTimeout(() => {
-            window.location.reload();
-        }, 80000);
+        // setTimeout(() => {
+        //     window.location.reload();
+        // }, 80000);
         axios.post('http://localhost:8000/api/v1/crawl')
             .then((response) => {
                 console.log(response);
                 setArtists(response.data.artists);
+                window.location.reload();
             })
             .catch((error) => {
                 console.error(error);
