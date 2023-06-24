@@ -107,8 +107,8 @@ function App() {
         <div className={`App ${theme}`}>
             <div>
                 <button onClick={toggleTheme} className="btn-primary">Toggle Theme</button>
-                <button onClick={handleInitDB}>Clear Screen</button>
-                <button onClick={handleCrawl}>Fetch Data</button>
+                <button onClick={handleInitDB} className="btn-primary">Clear Screen</button>
+                <button onClick={handleCrawl} className="btn-primary">Fetch Data</button>
             </div>
             <div className="row">
                 
