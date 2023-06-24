@@ -2,7 +2,7 @@ import time
 
 from flask import Flask, Response, render_template, request, jsonify
 from flask_cors import CORS
-
+import crawler
 import models
 
 app = Flask("lyrics")
@@ -40,6 +40,24 @@ def lyrics(song_id):
     # track.lyrics = track.lyrics.replace("\n", "<br/>")
     lyrics = {"name": track.name, "lyrics": track.lyrics}
     return jsonify(lyrics)
+
+
+
+@app.route('/api/v1/initdb', methods=['POST'])
+def init_db():
+    db = models.init_db(app, "postgresql:///lyrics")
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+    return 'Initialized the database'
+
+# Add route for Crawl command
+@app.route('/api/v1/crawl', methods=['POST'])
+def crawl():
+    nartists = request.args.get('nartists', default=8, type=int)
+    ntracks = request.args.get('ntracks', default=5, type=int)
+    crawler.crawl("https://www.songlyrics.com/top-artists-lyrics.html", nartists, ntracks)
+    return 'Crawled lyrics'
 
 @app.route("/")
 def index():
