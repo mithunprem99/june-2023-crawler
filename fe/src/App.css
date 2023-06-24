@@ -67,7 +67,17 @@ a {
 .artist_track{
   text-align: left;
 }
+.artists-col li.active {
+  font-weight: bold;
+  background-color: black;
+  width: 20%;
+}
+.tracks-col li.active {
+  font-weight: bold;
+  background-color: black;
+  width: 60%;
 
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
