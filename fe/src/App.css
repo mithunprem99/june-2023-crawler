@@ -130,6 +130,13 @@ a {
 
 }
 
+.btn-primary{
+  margin-right: 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: coral;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
