@@ -36,7 +36,25 @@
   background-color: #fff;
   color: #333;
 }
+.artists-col {
+  /* border: 1px solid black; */
+  padding: 10px;
+  margin-right: 10px;
+}
+.tracks-lyrics-col {
+  display: flex;
+  height: 500px; /* change this to your desired fixed height */
+}
 
+.tracks-col {
+  flex: 1;
+  /* overflow-y: scroll; */
+}
+
+.lyrics-col {
+  flex: 1;
+  overflow-y: scroll;
+}
 
 @keyframes App-logo-spin {
   from {

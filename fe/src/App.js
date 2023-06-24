@@ -57,12 +57,8 @@ function App() {
                 <button onClick={toggleTheme}>Toggle Theme</button>
             </div>
         <div className="row">
-            
-
-      
-    
   
-            <div className="col">
+            <div className="col artists-col">
                 <h2> Artists </h2>
                 <ul>
                     {artists.map(((artist, idx) => <li key={`artist${artist.id}`}>
@@ -75,7 +71,8 @@ function App() {
                     </li>))}
                 </ul>
             </div>
-            <div className="col">
+            <div className="col tracks-lyrics-col">
+        <div className="tracks-col">
                 <h2> Tracks </h2>
                 <ul>
                     {tracks.map(((track, idx) => <li key={`track${track.id}`}>
@@ -88,7 +85,7 @@ function App() {
                     </li>))}
                 </ul>
             </div>
-           <div className="col">
+            <div className="lyrics-col">
             
                 <h2> Lyrics </h2>
                 {lyrics.map(((lyric, idx) => 
@@ -99,6 +96,7 @@ function App() {
 
             </div>
         </div>
+         </div>
          </div>
     );
 }
