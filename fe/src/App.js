@@ -40,15 +40,15 @@ function App() {
                 setTracks(resp.data.tracks);
                 setLyrics([])
                 const allArtists = document.querySelectorAll('.artists-col li');
-            allArtists.forEach((artist) => {
-                if (artist.querySelector('a').getAttribute('artist_id') === artistId) {
-                    artist.classList.add('active');
-                } else {
-                    artist.classList.remove('active');
-                }
+                allArtists.forEach((artist) => {
+                    if (artist.querySelector('a').getAttribute('artist_id') === artistId) {
+                        artist.classList.add('active');
+                    } else {
+                        artist.classList.remove('active');
+                    }
 
+                });
             });
-        });
     }
     function onClickHandlerLyrics(e) {
         e.preventDefault()
@@ -65,7 +65,7 @@ function App() {
                     } else {
                         track.classList.remove('active');
                     }
-                }); 
+                });
             })
     }
     const handleInitDB = () => {
@@ -96,7 +96,7 @@ function App() {
 
     // Function to display alert box with message to wait for 60 seconds and reload the page
     const autoReloadPage = () => {
-        
+
         setTimeout(() => {
             window.location.reload();
         }, 1000);
@@ -110,8 +110,9 @@ function App() {
                 <button onClick={handleCrawl}>Fetch Data</button>
             </div>
             <div className="row">
-
-                <div className="col artists-col">
+                
+                <div className="col-sm-4 artists-col">
+                <div className='artist_div'>
                     <h2> Artists </h2>
                     <ul>
                         {artists.map(((artist, idx) => <li key={`artist${artist.id}`}>
@@ -119,10 +120,11 @@ function App() {
                                 href={`http://127.0.0.1:8000/api/v1/artist/${artist.id}`}
                                 onClick={onClickHandlerTracks}
                                 artist_id={artist.id}
-                            ><h5>{artist.name}</h5>
+                            ><h5 className='artist_name'>{artist.name}</h5>
                             </a>
                         </li>))}
                     </ul>
+                </div>
                 </div>
                 <div className="col tracks-lyrics-col">
                     <div className="tracks-col">
@@ -133,6 +135,7 @@ function App() {
                                     href={`http://127.0.0.1:8000/api/v1/song/${track.id}`}
                                     onClick={onClickHandlerLyrics}
                                     track_id={track.id}
+                                    className='track_name'
                                 ><h5>{track.name}</h5>
                                 </a>
                             </li>))}
