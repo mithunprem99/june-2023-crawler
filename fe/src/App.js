@@ -26,7 +26,7 @@ function App() {
                 document.body.className = theme;
             
             });
-    }, []);
+    }, [],[theme]);
 
 
 
@@ -66,21 +66,21 @@ function App() {
                             href={`http://127.0.0.1:8000/api/v1/artist/${artist.id}`}
                             onClick={onClickHandlerTracks}
                             artist_id={artist.id}
-                        >{artist.name}
+                        ><h5>{artist.name}</h5>
                         </a>
                     </li>))}
                 </ul>
             </div>
             <div className="col tracks-lyrics-col">
         <div className="tracks-col">
-                <h2> Tracks </h2>
+                <h2 className='artist_track'> Tracks </h2>
                 <ul>
                     {tracks.map(((track, idx) => <li key={`track${track.id}`}>
                         <a
                             href={`http://127.0.0.1:8000/api/v1/song/${track.id}`}
                             onClick={onClickHandlerLyrics}
                             track_id={track.id}
-                        >{track.name}
+                        ><h5>{track.name}</h5>
                         </a>
                     </li>))}
                 </ul>
@@ -91,7 +91,7 @@ function App() {
                 {lyrics.map(((lyric, idx) => 
                 <div key={idx}>
                     <div><h2>{lyric.name}</h2></div>
-                    <div style={{ whiteSpace: 'pre-line' }}>{lyric.lyrics}</div>
+                    <div style={{ whiteSpace: 'pre-line' }}><i>{lyric.lyrics}</i></div>
                 </div>))}
 
             </div>
