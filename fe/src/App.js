@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 import { useState, useRef, useEffect } from 'react';
 
@@ -50,11 +52,45 @@ function App() {
                 console.log(resp.data)
             })
     }
+    const handleInitDB = () => {
+        axios.post('http://localhost:8000/api/v1/initdb')
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+    
+      const handleCrawl = () => {
+        alert("Please wait while we crawl the data. This may take some time.");
+        setTimeout(() => {
+          window.location.reload();
+        }, 60000);
+        axios.post('http://localhost:8000/api/v1/crawl')
+          .then((response) => {
+            console.log(response);
+            setArtists(response.data.artists);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+     // Function to display alert box with message to wait for 60 seconds and reload the page
+     const autoReloadPage = () => {
+        alert("Please wait for 60 seconds while we reload the page.");
+        setTimeout(() => {
+          window.location.reload();
+        }, 60000);
+      };
 
     return (
         <div className={`App ${theme}`}>
             <div>
-                <button onClick={toggleTheme}>Toggle Theme</button>
+                <button onClick={toggleTheme} className="btn-primary">Toggle Theme</button>
+                <button onClick={handleInitDB}>Init DB</button>
+        <button onClick={handleCrawl}>Crawl</button>
             </div>
         <div className="row">
   
