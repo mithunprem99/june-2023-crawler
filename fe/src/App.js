@@ -74,8 +74,8 @@ function App() {
         const text = lyrics.map((lyric) => `${lyric.name}\n\n${lyric.lyrics}`).join('\n\n');
         doc.text(text, 10, 10);
         doc.save('lyrics.pdf');
-      };
-      
+    };
+
     const handleInitDB = () => {
         axios.post('http://localhost:8000/api/v1/initdb')
             .then((response) => {
@@ -87,12 +87,9 @@ function App() {
             });
     };
 
-    const handleCrawl = () => {
+    const handleCrawl = (nartists, ntracks) => {
         alert("Please wait while we crawl the data. This may take some time.");
-        // setTimeout(() => {
-        //     window.location.reload();
-        // }, 80000);
-        axios.post('http://localhost:8000/api/v1/crawl')
+        axios.post(`http://localhost:8000/api/v1/crawl/${nartists}/${ntracks}`)
             .then((response) => {
                 console.log(response);
                 setArtists(response.data.artists);
@@ -102,7 +99,6 @@ function App() {
                 console.error(error);
             });
     };
-
     // Function to display alert box with message to wait for 60 seconds and reload the page
     const autoReloadPage = () => {
 
@@ -116,24 +112,37 @@ function App() {
             <div>
                 <button onClick={toggleTheme} className="btn-primary">Toggle Theme</button>
                 <button onClick={handleInitDB} className="btn-primary">Clear Screen</button>
-                <button onClick={handleCrawl} className="btn-primary">Fetch Data</button>
+                <form onSubmit={(e) => { e.preventDefault(); handleCrawl(e.target.nartists.value, e.target.ntracks.value); }}>
+    <label>
+        Number of artists:
+        <input type="number" name="nartists" className='num_artist'/>
+    </label>
+    <br />
+    <label>
+        Number of tracks per artist:
+        <input type="number" name="ntracks" className='num_artist2'/>
+    </label>
+    <br />
+    <button type="submit" className="btn-primary">Fetch Data</button>
+</form>
+                {/* <button onClick={handleCrawl} className="btn-primary">Fetch Data</button> */}
             </div>
             <div className="row">
-                
+
                 <div className="col-sm-4 artists-col">
-                <div className='artist_div'>
-                    <h2> Artists </h2>
-                    <ul>
-                        {artists.map(((artist, idx) => <li key={`artist${artist.id}`}>
-                            <a
-                                href={`http://127.0.0.1:8000/api/v1/artist/${artist.id}`}
-                                onClick={onClickHandlerTracks}
-                                artist_id={artist.id}
-                            ><h5 className='artist_name'>{artist.name}</h5>
-                            </a>
-                        </li>))}
-                    </ul>
-                </div>
+                    <div className='artist_div'>
+                        <h2> Artists </h2>
+                        <ul>
+                            {artists.map(((artist, idx) => <li key={`artist${artist.id}`}>
+                                <a
+                                    href={`http://127.0.0.1:8000/api/v1/artist/${artist.id}`}
+                                    onClick={onClickHandlerTracks}
+                                    artist_id={artist.id}
+                                ><h5 className='artist_name'>{artist.name}</h5>
+                                </a>
+                            </li>))}
+                        </ul>
+                    </div>
                 </div>
                 <div className="col tracks-lyrics-col">
                     <div className="tracks-col">
@@ -156,7 +165,7 @@ function App() {
                         {lyrics.map(((lyric, idx) =>
                             <div key={idx}>
                                 <div><h2>{lyric.name}
-</h2></div><button onClick={handleDownload}>Download the lyrics {lyric.name}</button>
+                                </h2></div><button onClick={handleDownload}>Download the lyrics {lyric.name}</button>
                                 <div style={{ whiteSpace: 'pre-line' }}><i>{lyric.lyrics}</i></div>
                             </div>))}
 
