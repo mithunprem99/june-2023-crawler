@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import jsPDF from 'jspdf'
 
 import { useState, useRef, useEffect } from 'react';
 
@@ -68,6 +69,13 @@ function App() {
                 });
             })
     }
+    const handleDownload = () => {
+        const doc = new jsPDF();
+        const text = lyrics.map((lyric) => `${lyric.name}\n\n${lyric.lyrics}`).join('\n\n');
+        doc.text(text, 10, 10);
+        doc.save('lyrics.pdf');
+      };
+      
     const handleInitDB = () => {
         axios.post('http://localhost:8000/api/v1/initdb')
             .then((response) => {
@@ -147,7 +155,8 @@ function App() {
                         <h2> Lyrics </h2>
                         {lyrics.map(((lyric, idx) =>
                             <div key={idx}>
-                                <div><h2>{lyric.name}</h2></div>
+                                <div><h2>{lyric.name}
+</h2></div><button onClick={handleDownload}>Download the lyrics {lyric.name}</button>
                                 <div style={{ whiteSpace: 'pre-line' }}><i>{lyric.lyrics}</i></div>
                             </div>))}
 
