@@ -52,10 +52,14 @@ def init_db():
     return 'Initialized the database'
 
 # Add route for Crawl command
-@app.route('/api/v1/crawl', methods=['POST'])
-def crawl():
-    nartists = request.args.get('nartists', default=8, type=int)
-    ntracks = request.args.get('ntracks', default=5, type=int)
+# @app.route('/api/v1/crawl', methods=['POST'])
+# def crawl():
+#     nartists = request.args.get('nartists', default=8, type=int)
+#     ntracks = request.args.get('ntracks', default=5, type=int)
+#     crawler.crawl("https://www.songlyrics.com/top-artists-lyrics.html", nartists, ntracks)
+#     return 'Crawled lyrics'
+@app.route('/api/v1/crawl/<int:nartists>/<int:ntracks>', methods=['POST'])
+def crawl(nartists, ntracks):
     crawler.crawl("https://www.songlyrics.com/top-artists-lyrics.html", nartists, ntracks)
     return 'Crawled lyrics'
 
