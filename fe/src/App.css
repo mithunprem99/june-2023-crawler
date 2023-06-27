@@ -72,7 +72,7 @@
   margin-bottom: 10px;
   width: 250px;
   text-decoration: none;
-  color: black;
+  color: white;
   margin-top: 30px;
 
 }
@@ -151,6 +151,10 @@ a {
   margin-top: 10px;
   border-radius: 10px;
   background-color: coral;
+}
+.artlist{
+  text-decoration: none;
+  color: white;
 }
 
 @keyframes App-logo-spin {

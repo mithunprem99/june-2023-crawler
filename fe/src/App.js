@@ -134,7 +134,7 @@ function App() {
                         <h2> Artists </h2>
                         <ul>
                             {artists.map(((artist, idx) => <li key={`artist${artist.id}`}>
-                                <a
+                                <a className='artlist'
                                     href={`http://127.0.0.1:8000/api/v1/artist/${artist.id}`}
                                     onClick={onClickHandlerTracks}
                                     artist_id={artist.id}
@@ -166,7 +166,7 @@ function App() {
                             <div key={idx}>
                                 <div><h2>{lyric.name}
                                 </h2></div><button onClick={handleDownload}>Download the lyrics {lyric.name}</button>
-                                <div style={{ whiteSpace: 'pre-line' }}><i>{lyric.lyrics}</i></div>
+                                <div style={{ whiteSpace: 'pre-line' }}><h3><i>{lyric.lyrics}</i></h3></div>
                             </div>))}
 
                     </div>
